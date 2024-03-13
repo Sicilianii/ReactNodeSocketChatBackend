@@ -6,7 +6,10 @@ const { getMessagesRecentChat, getMessagesGroupChat } = require('../controllers/
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.sendFile(join(__dirname, '..', 'index.html'));
+    // res.sendFile(join(__dirname, '..', 'index.html'));
+    res.json({
+        message: 'Vse okey'
+    });
 });
 
 router.get('/root', getFullInfo);

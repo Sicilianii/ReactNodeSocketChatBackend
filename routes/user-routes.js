@@ -13,7 +13,7 @@ const {
 
 router.get('/user', getInfoMyUser );
 
-router.get('/users', getAllUsers );
+router.get('/user/:id', getAllUsers );
 
 // router.get('/users/:id', getUser );
 //

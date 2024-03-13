@@ -17,3 +17,4 @@ const getAllGroupChats = (req, res) => {
 module.exports = {
     getAllGroupChats
 };
+
