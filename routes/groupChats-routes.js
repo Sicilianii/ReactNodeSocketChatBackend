@@ -3,6 +3,6 @@ const { getAllGroupChats } = require('../controllers/groupChat-controllers');
 
 const router = express.Router();
 
-router.get('/groups', getAllGroupChats)  // получаем все чаты пользователя
+router.get('/groups/:id', getAllGroupChats)  // получаем все чаты пользователя
 
 module.exports = router;

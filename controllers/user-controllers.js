@@ -17,7 +17,6 @@ const getAllUsers = (req, res) => {
         } ).catch( (err) => handleError(res, err) )
     })
     .catch( (err) => handleError(res, err) )
-    
 }
 
 // const getUser = (req, res) => {

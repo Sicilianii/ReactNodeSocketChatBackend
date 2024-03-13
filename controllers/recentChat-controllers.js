@@ -8,7 +8,7 @@ const handleError = (res, err) => { res.status(500).json( {error: `${err}`} )}
 // const createRecentChat = (req, res) => {}
 
 const getAllRecentChat = (req, res) => {
-    User.findById(req.query.id, { chats: { recentChats: 1 } })
+    User.findById(req.params.id, { chats: { recentChats: 1 } })
     .then( (data) => {
         RecentChat.find({ '_id': { $in: data.chats.recentChats } }).then( (chats) => {
             res.status(200).json(chats);
