@@ -14,10 +14,10 @@ router.get('/', (req, res) => {
 
 router.get('/root', getFullInfo);
 
-// router.get('/chats', getAllChats);
+// // router.get('/chats', getAllChats);
 
-router.get('/chats/recent/:id', getMessagesRecentChat);
+// router.get('/chats/recent/:id', getMessagesRecentChat);
 
-router.get('/chats/group/:id', getMessagesGroupChat);
+// router.get('/chats/group/:id', getMessagesGroupChat);
 
 module.exports = router;

@@ -11,7 +11,7 @@ const {
 } = require('../controllers/user-controllers');
 
 
-router.get('/user', getInfoMyUser );
+// router.get('/user', getInfoMyUser );
 
 router.get('/user/:id', getAllUsers );
 
@@ -21,7 +21,7 @@ router.get('/user/:id', getAllUsers );
 //
 // router.patch('/users/:id', updateUser );
 
-router.delete('/users/:id', deleteUser );
+// router.delete('/users/:id', deleteUser );
 
 
 module.exports = router;

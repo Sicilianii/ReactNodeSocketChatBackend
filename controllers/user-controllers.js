@@ -3,12 +3,12 @@ const User = require("../models/users");
 const handleError = (res, err) => { res.status(500).json( {error: `${err}`} )}
 
 
-const getInfoMyUser = (req, res) => {
-    User.findById(req.query.id, { _id: 1, nameUser: 1}).then( (userData) => {
-        res.status(200).json(userData);
-    })
-    .catch( (err) => handleError(res, err) )
-}
+// const getInfoMyUser = (req, res) => {
+//     User.findById(req.query.id, { _id: 1, nameUser: 1}).then( (userData) => {
+//         res.status(200).json(userData);
+//     })
+//     .catch( (err) => handleError(res, err) )
+// }
 
 const getAllUsers = (req, res) => {
     User.findById(req.params.id, { friends: 1}).then( currentUser => {
@@ -39,11 +39,11 @@ const getAllUsers = (req, res) => {
 // }
 
 
-const deleteUser = (req, res) => {
-    User.findByIdAndDelete(req.params.id).then( (result) => {
-        res.status(200).json(result);
-    }).catch( (err) => handleError(res, err) )
-}
+// const deleteUser = (req, res) => {
+//     User.findByIdAndDelete(req.params.id).then( (result) => {
+//         res.status(200).json(result);
+//     }).catch( (err) => handleError(res, err) )
+// }
 
 
 module.exports = {

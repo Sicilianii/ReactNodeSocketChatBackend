@@ -17,22 +17,22 @@ const getAllRecentChat = (req, res) => {
     .catch( (err) => handleError(res, err) )
 }
 
-const delRecentChat = (req, res) => {
-    RecentChat.findOneAndDelete(req.params.id)
-        .then( (chat) => {
-            res.status(200).json(chat)
-        } )
-        .then( (data) => {
-            // This place for func delete Chat mess
-            console.log(data)
-        } )
-        .catch( (err) => handleError(res, err) )
-}
+// const delRecentChat = (req, res) => {
+//     RecentChat.findOneAndDelete(req.params.id)
+//         .then( (chat) => {
+//             res.status(200).json(chat)
+//         } )
+//         .then( (data) => {
+//             // This place for func delete Chat mess
+//             console.log(data)
+//         } )
+//         .catch( (err) => handleError(res, err) )
+// }
 
 // const updateRecentChat = (req, res) => {}
 
 module.exports = {
     getAllRecentChat,
     // createRecentChat,
-    delRecentChat,
+    // delRecentChat,
 };
