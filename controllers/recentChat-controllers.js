@@ -15,6 +15,12 @@ const getAllRecentChat = (req, res) => {
         } ).catch( (err) => handleError(res, err) )
     })
     .catch( (err) => handleError(res, err) )
+};
+
+const getInfoRecentChat = (req, res) => {
+    RecentChat.findById(req.params.id).then( info => {
+        res.status(200).json(info);
+    }).catch( (err) => handleError(res, err) )
 }
 
 // const delRecentChat = (req, res) => {
@@ -32,6 +38,7 @@ const getAllRecentChat = (req, res) => {
 // const updateRecentChat = (req, res) => {}
 
 module.exports = {
+    getInfoRecentChat,
     getAllRecentChat,
     // createRecentChat,
     // delRecentChat,

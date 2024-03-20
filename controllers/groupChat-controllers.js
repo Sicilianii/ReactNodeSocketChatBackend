@@ -14,7 +14,14 @@ const getAllGroupChats = (req, res) => {
         .catch( (err) => handleError(res, err) )
 }
 
+const getInfoGroupChat = (req, res) => {
+    GroupChat.findById(req.params.id).then( (info) => {
+        res.status(200).json(info);
+    }).catch( (err) => handleError(res, err) )
+}
+
 module.exports = {
+    getInfoGroupChat,
     getAllGroupChats
 };
 
