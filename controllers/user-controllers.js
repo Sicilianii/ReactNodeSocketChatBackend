@@ -47,10 +47,10 @@ const getAllUsers = (req, res) => {
 
 
 module.exports = {
-    getInfoMyUser,
+    // getInfoMyUser,
     getAllUsers,
     // getUser,
     // addUser,
     // updateUser,
-    deleteUser
+    // deleteUser
 };
