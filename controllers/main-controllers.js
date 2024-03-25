@@ -1,12 +1,11 @@
-const Chats = require('../models/chat');
-const RecentChat = require('../models/recentChats');
-const GroupChat = require('../models/groupChats');
-const User = require("../models/users");
+import { Chats } from '../models/chat.js';
+import { RecentChat } from '../models/recentChats.js';
+import { GroupChat } from '../models/groupChats.js';
+import { User } from "../models/users.js";
 
 const handleError = (res, err) => { res.status(500).json( {error: `${err}`} )}
 
-
-const getFullInfo = (req, res) => {
+export const getFullInfo = (req, res) => {
     User.findById(req.query.id).then( (user) => {
         RecentChat.find({ '_id': { $in: user.chats.recentChats } }).then( (recentChat) => {
             GroupChat.find({ '_id': { $in: user.chats.groupChats } }).then( (groupChat) => {
@@ -18,7 +17,3 @@ const getFullInfo = (req, res) => {
         } ).catch( (err) => handleError(res, err) )
     }).catch( (err) => handleError(res, err) )
 }
-
-module.exports = {
-    getFullInfo
-};

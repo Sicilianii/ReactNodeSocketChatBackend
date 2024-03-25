@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 
 const Schema = mongoose.Schema;
@@ -17,6 +17,5 @@ const recentChatSchema = new Schema({
     }
 });
 
-const RecentChat = mongoose.model('recent', recentChatSchema);
+export const RecentChat = mongoose.model('recent', recentChatSchema);
 
-module.exports = RecentChat;

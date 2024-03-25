@@ -1,10 +1,7 @@
-const express = require('express');
-const { getAllGroupChats, getInfoGroupChat } = require('../controllers/groupChat-controllers');
+import express from "express";
+import { getAllGroupChats, getInfoGroupChat } from '../controllers/groupChat-controllers.js';
 
-const router = express.Router();
+export const router = express.Router();
 
 router.get('/groups/:id', getAllGroupChats)  // получаем все чаты пользователя
 router.get('/groups/info/:id', getInfoGroupChat); // получаем всю инфу чата
-
-
-module.exports = router;
