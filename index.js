@@ -7,6 +7,7 @@ import { router as userRouter } from './routes/user-routes.js';
 import { router as mainRouter } from './routes/main-routes.js';
 import { router as groupRouter } from './routes/groupChats-routes.js';
 import { router as recentRouter } from './routes/recentChat-routes.js';
+import { log } from 'console';
 
 
 const URL = 'mongodb://admin:GIH%269zBS@lipascadmeb.beget.app/';
@@ -60,14 +61,23 @@ io.on('connection', (socket)=> {
 
         if (Array.from(socket.rooms).length) {
             Array.from(socket.rooms).forEach(el => socket.leave(el))
+            socket.join(infoChat)
+            socket.to(infoChat).emit('NewState');
         }
 
         console.log(`User ${name} connected`)
-        console.dir(Array.from(socket.rooms));
 
-        socket.join(infoChat)
+    
+        socket.on('SendNewMessage', (newMess) => {
+            console.log(newMess);
+            socket.to(infoChat).emit('MailingMessages', newMess);
+        });
+
+
         console.dir(Array.from(socket.rooms));
-    })
+    });
+
+    
 
     // disconnect from all rooms
 
