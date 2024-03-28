@@ -8,6 +8,7 @@ import { router as mainRouter } from './routes/main-routes.js';
 import { router as groupRouter } from './routes/groupChats-routes.js';
 import { router as recentRouter } from './routes/recentChat-routes.js';
 import { log } from 'console';
+import crypto from 'crypto'
 
 
 const URL = 'mongodb://admin:GIH%269zBS@lipascadmeb.beget.app/';
@@ -56,21 +57,25 @@ io.on('connection', (socket)=> {
 
     console.log(`User ${socket.id} connected`)
 
+    socket.on('leaveConnection', (infoChat) => {
+        if (Array.from(socket.rooms).length) {
+            Array.from(socket.rooms).forEach(el => socket.leave(el))
+            console.log(socket.rooms);
+            socket.emit('NewState');
+            socket.join(infoChat);
+        }
+    })
+
+
+
     socket.on('newConnection', (infoChat, user) => {
         const {name, id} = user;
 
-        if (Array.from(socket.rooms).length) {
-            Array.from(socket.rooms).forEach(el => socket.leave(el))
-            socket.join(infoChat)
-            socket.to(infoChat).emit('NewState');
-        }
-
         console.log(`User ${name} connected`)
 
-    
         socket.on('SendNewMessage', (newMess) => {
-            console.log(newMess);
-            socket.to(infoChat).emit('MailingMessages', newMess);
+            console.dir(newMess);
+            socket.to(infoChat).emit('MailingMessages', {...newMess, idMessage: crypto.randomUUID()});
         });
 
 
@@ -85,7 +90,7 @@ io.on('connection', (socket)=> {
 
 
     // If user disconnected
-    socket.on('disconnect', ()=> {
+    socket.once('disconnect', ()=> {
         console.log(`User ${socket.id} disconnected`)
     })
 })
