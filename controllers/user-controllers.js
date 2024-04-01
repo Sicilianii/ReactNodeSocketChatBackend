@@ -12,3 +12,13 @@ export const getAllUsers = (req, res) => {
     })
     .catch( (err) => handleError(res, err) )
 }
+
+export const singIn = (req, res) => {
+    console.log(req);
+    res.status(200)
+}
+
+export const registration = (req, res) => {
+    console.log(req);
+    res.status(200)
+}
