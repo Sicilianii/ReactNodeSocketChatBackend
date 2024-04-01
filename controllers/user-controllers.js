@@ -14,8 +14,14 @@ export const getAllUsers = (req, res) => {
 }
 
 export const singIn = (req, res) => {
-    console.log(req);
-    res.status(200)
+
+    User.findOne( { email: req.body.email } ).then( user => {
+        if (user) {
+            user._doc.pass === req.body.pass 
+            ? res.status(200).json(user) 
+            : res.status(502).json({ message: 'Password is not valid' })
+        } else { res.status(501).json({ message: 'User is not found' }) }
+    }).catch( (err) => handleError(res, err) )
 }
 
 export const registration = (req, res) => {
