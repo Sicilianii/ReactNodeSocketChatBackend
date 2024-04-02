@@ -24,7 +24,25 @@ export const singIn = (req, res) => {
     }).catch( (err) => handleError(res, err) )
 }
 
-export const registration = (req, res) => {
-    console.log(req);
-    res.status(200)
+export const singUp = (req, res) => {
+    User.findOne( { email: req.body.email } ).then(user => {
+        if(!user) {
+            User.create({
+                    "pass": req.body.pass,
+                    "nameUser": req.body.name,
+                    "chats": {
+                      "recentChats": [],
+                      "groupChats": []
+                    },
+                    "friends": [],
+                    "email": req.body.email,
+                    "job_title": "Unspecified",
+                    "phone": "Unspecified"
+                  }).then(newUser => {
+                    res.status(201).json(newUser);
+                  }).catch( (err) => handleError(res, err) )
+        } else { 
+            res.status(503).json({message: 'A user with this e-mail address is already registered'})
+        }
+    }).catch(e => console.log(e))
 }

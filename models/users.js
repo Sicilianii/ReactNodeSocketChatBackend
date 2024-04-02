@@ -14,7 +14,17 @@ const usersSchema = new Schema({
         recentChats: [mongoose.Schema.Types.ObjectId],
         groupChats: [mongoose.Schema.Types.ObjectId]
     },
-    friends: [mongoose.Schema.Types.ObjectId]
+    friends: [mongoose.Schema.Types.ObjectId],
+    email: {
+        type: String,
+        require: true
+    },
+    pass: {
+        type: String,
+        require: true
+    },
+    job_title: String,
+    phone: String
 });
 
 export const User = mongoose.model('User', usersSchema);
