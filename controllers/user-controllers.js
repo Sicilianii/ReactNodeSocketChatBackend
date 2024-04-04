@@ -46,3 +46,9 @@ export const singUp = (req, res) => {
         }
     }).catch(e => console.log(e))
 }
+
+export const getProfileInfoByID = (req, res) => {
+    User.findById(req.params.id).then( profile => {
+        res.status(200).json(profile);
+    }).catch( (err) => handleError(res, err) )
+}
