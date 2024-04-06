@@ -54,7 +54,7 @@ export const getProfileInfoByID = (req, res) => {
 }
 
 export const changeProfileName = (req, res) => {
-    User.updateOne(req.params.id, {nameUser: req.body.newName}).then( profile => {
+    User.updateOne({_id: req.params.id}, {nameUser: req.body.newName}).then( profile => {
         res.status(200).json(profile);
     }).catch( (err) => handleError(res, err) )
 }
