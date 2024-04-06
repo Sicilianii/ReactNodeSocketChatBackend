@@ -52,3 +52,9 @@ export const getProfileInfoByID = (req, res) => {
         res.status(200).json(profile);
     }).catch( (err) => handleError(res, err) )
 }
+
+export const changeProfileName = (req, res) => {
+    User.updateOne(req.params.id, {nameUser: req.body.newName}).then( profile => {
+        res.status(200).json(profile);
+    }).catch( (err) => handleError(res, err) )
+}
