@@ -58,3 +58,9 @@ export const changeProfileName = (req, res) => {
         res.status(200).json(profile);
     }).catch( (err) => handleError(res, err) )
 }
+
+export const changeProfileJobTitle = (req, res) => {
+    User.updateOne({_id: req.params.id}, {job_title: req.body.newTitle}).then( profile => {
+        res.status(200).json(profile);
+    }).catch( (err) => handleError(res, err) )
+}

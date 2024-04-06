@@ -1,5 +1,12 @@
 import express from "express";
-import {getAllUsers, singIn, singUp, getProfileInfoByID, changeProfileName} from '../controllers/user-controllers.js';
+import {
+    getAllUsers,
+    singIn,
+    singUp,
+    getProfileInfoByID,
+    changeProfileName,
+    changeProfileJobTitle
+} from '../controllers/user-controllers.js';
 
 export const router = express.Router();
 
@@ -8,3 +15,4 @@ router.post('/singIn', singIn );
 router.post('/singUp', singUp);
 router.get('/profile/:id', getProfileInfoByID);
 router.post('/profile/:id/newName', changeProfileName);
+router.post('/profile/:id/newTitle', changeProfileJobTitle);
