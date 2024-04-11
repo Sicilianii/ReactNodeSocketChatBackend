@@ -5,7 +5,8 @@ import {
     singUp,
     getProfileInfoByID,
     changeProfileName,
-    changeProfileJobTitle
+    changeProfileJobTitle,
+    subscription
 } from '../controllers/user-controllers.js';
 
 export const router = express.Router();
@@ -16,3 +17,4 @@ router.post('/singUp', singUp);
 router.get('/profile/:id', getProfileInfoByID);
 router.post('/profile/:id/newName', changeProfileName);
 router.post('/profile/:id/newTitle', changeProfileJobTitle);
+router.get('/profile/:id/subscription', subscription);
