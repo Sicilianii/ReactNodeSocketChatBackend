@@ -24,7 +24,8 @@ const usersSchema = new Schema({
         require: true
     },
     job_title: String,
-    phone: String
+    phone: String,
+    subscription: Boolean
 });
 
 export const User = mongoose.model('User', usersSchema);

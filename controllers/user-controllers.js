@@ -64,3 +64,16 @@ export const changeProfileJobTitle = (req, res) => {
         res.status(200).json(profile);
     }).catch( (err) => handleError(res, err) )
 }
+
+export const subscription = (req, res) => {
+    User.findById(req.params.id)
+        .then( profile => {
+            if (profile.subscription) {
+                res.status(501).json(profile)
+            } else {
+                User.updateOne({_id: profile._id}, {subscription: true}).then( profile => {
+                    res.status(201).json(profile)}).catch( (err) => handleError(res, err) )
+            }
+        })
+        .catch( (err) => handleError(res, err) )
+}
