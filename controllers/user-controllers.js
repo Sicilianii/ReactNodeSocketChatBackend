@@ -77,3 +77,18 @@ export const subscription = (req, res) => {
         })
         .catch( (err) => handleError(res, err) )
 }
+
+export const searchNewFriends = (req, res) => {
+    User.find( { email: {'$regex': req.body.search},  _id: { $nin: [...req.body.friends, req.params.id] } }, {_id: 1, nameUser: 1, email: 1} ).then(users => {
+        if (users.length) {
+            res.status(200).json({
+                entities: users,
+                status: 1
+            });
+        } else res.status(501).json({
+            message: 'Not found users for you',
+            status: 0
+        });
+    })
+}
+
