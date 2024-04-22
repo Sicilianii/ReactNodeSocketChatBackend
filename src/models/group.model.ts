@@ -1,5 +1,5 @@
 import mongoose, {model} from 'mongoose';
-import {IGroupChat, IRecentChat} from "../types/types";
+import { IGroupChat } from "../types/types";
 
 const Schema = mongoose.Schema;
 

@@ -1,7 +1,7 @@
 import { RecentChat } from '../models/recent.model';
 import { User } from "../models/profile.model";
 import { Request, Response } from "express";
-import {IUser} from "../types/types";
+
 
 const handleError = (res: Response, err: Error | string) => { res.status(500).json( {error: `${err}`} )}
 

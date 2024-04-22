@@ -1,5 +1,5 @@
 import {Router} from "express";
-
+import { Response } from "express";
 
 
 class MainRoutes {
@@ -11,7 +11,7 @@ class MainRoutes {
 
     intializeRoutes() {
 
-        this.router.get('/', (req, res) => {
+        this.router.get('/', ( res: Response) => {
             // res.sendFile(join(__dirname, '..', 'index.html'));
             res.json({
                 message: 'Vse okey'

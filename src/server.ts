@@ -5,10 +5,12 @@ import mongoose from 'mongoose';
 import crypto from 'crypto'
 import {IMessages} from "./types/types";
 
+
 const URL: string = 'mongodb://admin:GIH%269zBS@lipascadmeb.beget.app/';
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 const app: Application = express();
-const serv: Serv = new Serv(app);
+
+new Serv(app);
 
 
 mongoose
@@ -41,9 +43,9 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('newConnection', (infoChat, user) => {
-        const {name, id} = user;
+        const {name, id}: {name: string, id: number} = user;
 
-        console.log(`User ${name} connected`)
+        console.log(`User ${name} connected: ${id} - ID`)
 
         socket.on('SendNewMessage', (newMess: IMessages) => {
             console.dir(newMess);

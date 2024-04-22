@@ -33,7 +33,7 @@ export const createNewChat = (req: Request, res: Response) => {
                     users: req.body.users,
                     body_chats: chat._id
                 }).then( (groupChat) => {
-                    User.updateMany({ '_id': { $in: req.body.users } }, { $push: { "chats.groupChats": groupChat._id } } ).then( data => res.status(201).json({chat: chat}))
+                    User.updateMany({ '_id': { $in: req.body.users } }, { $push: { "chats.groupChats": groupChat._id } } ).then( () => res.status(201).json({chat: chat}))
                 } )
             })
         }
