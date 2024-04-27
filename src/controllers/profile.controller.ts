@@ -1,5 +1,6 @@
 import { User } from "../models/profile.model";
 import { Request, Response } from "express";
+import {IUser} from "../types/types";
 
 const handleError = (res: Response, err: Error | string) => { res.status(500).json( {error: `${err}`} )}
 
@@ -17,10 +18,20 @@ export const getAllUsers = (req: Request, res: Response) => {
 export const singIn = (req: Request, res: Response) => {
 
     User.findOne( { email: req.body.email } ).then( user => {
-        if (user) {
-            user.pass === req.body.pass
-                ? res.status(200).json(user)
-                : res.status(502).json({ message: 'Password is not valid' })
+        if (user && user.pass === req.body.pass) {
+            User.find({ '_id': { $in: user.friends } }, {
+                _id: 1,
+                nameUser: 1,
+                email: 1,
+                job_title: 1,
+                phone: 1
+            }).then( (list : IUser[]) => {
+                res.status(200).json({...user, friends: list})
+            })
+
+            // user.pass === req.body.pass
+            //     ? res.status(200).json(user)
+            //     : res.status(502).json({ message: 'Password is not valid' })
         } else { res.status(501).json({ message: 'User is not found' }) }
     }).catch( (err) => handleError(res, err) )
 }
