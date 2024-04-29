@@ -1,6 +1,5 @@
 import { Router } from "express";
 import {
-    getAllUsers,
     singIn,
     singUp,
     getProfileInfoByID,
@@ -22,7 +21,6 @@ class ProfileRoutes {
 
     intializeRoutes() {
 
-        this.router.get('/user/:id', getAllUsers );
         this.router.post('/singIn', singIn );
         this.router.post('/singUp', singUp);
         this.router.get('/profile/:id', getProfileInfoByID);

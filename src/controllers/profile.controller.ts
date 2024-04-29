@@ -4,16 +4,6 @@ import {IUser} from "../types/types";
 
 const handleError = (res: Response, err: Error | string) => { res.status(500).json( {error: `${err}`} )}
 
-export const getAllUsers = (req: Request, res: Response) => {
-    User.findById(req.params.id, { friends: 1}).then( (currentUser) => {
-        User.find({ '_id': { $in: currentUser?.friends } }, { nameUser: 1, email: 1,
-            job_title: 1,
-            phone: 1}).then( (friends) => {
-            res.status(200).json(friends);
-        } ).catch( (err) => handleError(res, err) )
-    })
-        .catch( (err) => handleError(res, err) )
-}
 
 export const singIn = (req: Request, res: Response) => {
 
@@ -60,9 +50,12 @@ export const singUp = (req: Request, res: Response) => {
 }
 
 export const getProfileInfoByID = (req: Request, res: Response) => {
-    User.findById(req.params.id).then( profile => {
-        res.status(200).json(profile);
-    }).catch( (err) => handleError(res, err) )
+    User.findById(req.params.id, { friends: 1, phone: 1, email: 1, job_title: 1, nameUser: 1, _id: 1}).then( (currentUser) => {
+        User.find({ '_id': { $in: currentUser?.friends } }, {phone: 1, email: 1, job_title: 1, nameUser: 1, _id: 1}).then( (friends) => {
+            res.status(200).json({...currentUser, friends: friends});
+        } ).catch( (err) => handleError(res, err) )
+    })
+        .catch( (err) => handleError(res, err) )
 }
 
 export const changeProfileName = (req: Request, res: Response) => {
