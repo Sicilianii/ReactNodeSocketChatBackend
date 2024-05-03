@@ -10,10 +10,15 @@ const groupChatSchema: mongoose.Schema = new Schema({
     },
     id_chats: String,
     nameChat: String,
-    users: [{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true
-    }],
+    users: [
+        {
+            _id: {
+                type: mongoose.Schema.Types.ObjectId,
+                require: true
+            },
+            nameUser: String
+        }
+    ],
     body_chats: {
         type: mongoose.Schema.Types.ObjectId,
         require: true

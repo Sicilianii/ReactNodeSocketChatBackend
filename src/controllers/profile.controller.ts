@@ -7,7 +7,7 @@ const handleError = (res: Response, err: Error | string) => { res.status(500).js
 
 export const singIn = (req: Request, res: Response) => {
 
-    User.findOne( { email: req.body.email } ).then( user => {
+    User.findOne( { email: req.body.email } ).lean().then( user => {
         if (user && user.pass === req.body.pass) {
             User.find({ '_id': { $in: user.friends } }, {
                 _id: 1,
@@ -18,10 +18,6 @@ export const singIn = (req: Request, res: Response) => {
             }).then( (list : IUser[]) => {
                 res.status(200).json({...user, friends: list})
             })
-
-            // user.pass === req.body.pass
-            //     ? res.status(200).json(user)
-            //     : res.status(502).json({ message: 'Password is not valid' })
         } else { res.status(501).json({ message: 'User is not found' }) }
     }).catch( (err) => handleError(res, err) )
 }
@@ -50,8 +46,8 @@ export const singUp = (req: Request, res: Response) => {
 }
 
 export const getProfileInfoByID = (req: Request, res: Response) => {
-    User.findById(req.params.id, { friends: 1, phone: 1, email: 1, job_title: 1, nameUser: 1, _id: 1}).then( (currentUser) => {
-        User.find({ '_id': { $in: currentUser?.friends } }, {phone: 1, email: 1, job_title: 1, nameUser: 1, _id: 1}).then( (friends) => {
+    User.findById(req.params.id, { friends: 1, phone: 1, email: 1, job_title: 1, nameUser: 1, _id: 1}).lean().then( (currentUser) => {
+        User.find({ '_id': { $in: currentUser?.friends } }, {phone: 1, email: 1, job_title: 1, nameUser: 1, _id: 1}).lean().then( (friends) => {
             res.status(200).json({...currentUser, friends: friends});
         } ).catch( (err) => handleError(res, err) )
     })
@@ -71,12 +67,12 @@ export const changeProfileJobTitle = (req: Request, res: Response) => {
 }
 
 export const subscription = (req: Request, res: Response) => {
-    User.findById(req.params.id)
+    User.findById(req.params.id).lean()
         .then( profile => {
             if (profile?.subscription) {
                 res.status(501).json(profile)
             } else {
-                User.updateOne({_id: profile?._id}, {subscription: true}).then( profile => {
+                User.updateOne({_id: profile?._id}, {subscription: true}).lean().then( profile => {
                     res.status(201).json(profile)}).catch( (err) => handleError(res, err) )
             }
         })
@@ -100,8 +96,8 @@ export const searchNewFriends = (req: Request, res: Response) => {
 export const squabble = (req: Request, res: Response) => {
     const {myID, idFriend} = req.params;
 
-    User.findByIdAndUpdate(myID, { $pull: { "friends": idFriend } } ).then( result => {
-        User.findByIdAndUpdate(idFriend, { $pull: { "friends": myID } }).then( resultMore => {
+    User.findByIdAndUpdate(myID, { $pull: { "friends": idFriend } } ).lean().then( result => {
+        User.findByIdAndUpdate(idFriend, { $pull: { "friends": myID } }).lean().then( resultMore => {
             if (result && resultMore) { res.status(201).json({
                 message: 'You chased that bum away.',
                 status: 1
@@ -119,8 +115,8 @@ export const squabble = (req: Request, res: Response) => {
 export const befriend = (req: Request, res: Response) => {
     const {myID, idFriend} = req.params;
 
-    User.findByIdAndUpdate(myID, { $push: { "friends": idFriend } }).then( result => {
-        User.findByIdAndUpdate(idFriend, { $push: { "friends": myID } }).then( resultMore => {
+    User.findByIdAndUpdate(myID, { $push: { "friends": idFriend } }).lean().then( result => {
+        User.findByIdAndUpdate(idFriend, { $push: { "friends": myID } }).lean().then( resultMore => {
             if (result && resultMore) { res.status(201).json({
                 message: 'You have new friend.',
                 status: 1

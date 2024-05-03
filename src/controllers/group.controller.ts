@@ -7,9 +7,11 @@ const handleError = (res: Response, err: Error | string) => { res.status(500).js
 
 
 export const getAllGroupChats = (req: Request, res: Response) => {
-    User.findById(req.params.id, { chats: { groupChats: 1 } })
+    User.findById(req.params.id, { chats: { groupChats: 1 } }).lean()
         .then( (data) => {
-            GroupChat.find({ '_id': { $in: data?.chats?.groupChats } }).then( (chats) => {
+            GroupChat.find({ '_id': { $in: data?.chats?.groupChats } }).lean().then( (chats) => {
+                console.log(chats);
+                
                 res.status(200).json(chats);
             } ).catch( (err) => handleError(res, err) )
         })
@@ -23,7 +25,7 @@ export const getInfoGroupChat = (req: Request, res: Response) => {
 }
 
 export const createNewChat = (req: Request, res: Response) => {
-    GroupChat.find({nameChat: req.body.name}).then( (chatFind) => {
+    GroupChat.find({nameChat: req.body.name}).lean().then( (chatFind) => {
         if(chatFind.length) {
             res.status(503).json({message: 'A chat with this NAME is already registered'})
         } else {

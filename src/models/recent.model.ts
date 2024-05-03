@@ -8,10 +8,15 @@ const recentChatSchema: mongoose.Schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         require: true
     },
-    users: [{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true
-    }],
+    users: [
+        {
+            _id: {
+                type: mongoose.Schema.Types.ObjectId,
+                require: true
+            },
+            nameUser: String
+        }
+    ],
     body_chats: {
         type: mongoose.Schema.Types.ObjectId,
         require: true

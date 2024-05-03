@@ -6,9 +6,9 @@ import { Request, Response } from "express";
 const handleError = (res: Response, err: Error | string) => { res.status(500).json( {error: `${err}`} )}
 
 export const getAllRecentChat = (req: Request, res: Response) => {
-    User.findById(req.params.id, { chats: { recentChats: 1 } })
+    User.findById(req.params.id, { chats: { recentChats: 1 } }).lean()
         .then( (data) => {
-            RecentChat.find({ '_id': { $in: data?.chats?.recentChats } }).then( (chats) => {
+            RecentChat.find({ '_id': { $in: data?.chats?.recentChats } }).lean().then( (chats) => {
                 res.status(200).json(chats);
             } ).catch( (err) => handleError(res, err) )
         })
